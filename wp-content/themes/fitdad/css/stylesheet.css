@@ -1,17 +1,320 @@
-header .logo {
-    width: 150px;
+/* Custom fonts loaded from Google */
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300);
+
+body {
+    background-color: #303030 !important;
+    font: 1rem 'Arial', "Helvetica Neue", Helvetica, sans-serif !important;
+    color: #999999 !important;
 }
+
+/* Headings */
+h1 {
+    color: #4d4d4d;
+    font: bold 1.875rem 'Open Sans Condensed' !important;
+    margin: 0;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+}
+
+h2 {
+    color: #4d4d4d;
+    font: bold 1.875rem 'Open Sans Condensed' !important;
+    margin: 0;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+}
+
+h3 {
+    color: #656464;
+    font: bold 1.3rem 'Open Sans Condensed' !important;
+    margin: 0;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.advert-before {
+    margin: 0 0 1em;
+    line-height: 2em;
+    padding: 0;
+    font-size: 0.7em;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+    .advert-before:before, .advert-before:after {
+        content: " ";
+        position: absolute;
+        top: 50%;
+        margin-left: -999em;
+        height: 1px;
+        width: 998em;
+        border-top: 1px solid #e1e1e1;
+        background: rgba(0,0,0,0.2);
+    }
+
+    .advert-before:after {
+        left: auto;
+        width: 999em;
+        margin: 0 0 0 1em;
+    }
+
+.advert-after {
+    border-top: 1px solid #e1e1e1;
+    height: 1px;
+}
+
+/* */
+p {
+    line-height: 1.4 !important;
+}
+
+a.no-underline {
+    text-decoration: none;
+}
+
+/*  Posts */
+.post-list {
+}
+
+    .post-list a,
+    .post-list a:active,
+    .post-list a:hover,
+    .post-list a:visited {
+        text-decoration: none;
+        color: #999999;
+    }
+
+    .post-list h3 {
+        margin-bottom: 0px;
+        padding-bottom: 0;
+        text-decoration: none;
+    }
+
+    .post-list p.post-datetime {
+        font-size: 0.75rem;
+    }
+
+    .post-list img.post-stacked {
+        padding-bottom: 0.6rem;
+    }
+
+    .post-list ul {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+.post-single {
+}
+
+    .post-single h1 {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .post-single p.post-datetime {
+        font-size: 0.75rem;
+    }
+
+    .post-single img.featured-image {
+        padding-bottom: 0.6rem;
+    }
+
+/* Pagination Links */
+.pagination-links {
+    padding: 2rem 0 0 0;
+}
+
+/* Header */
+.admin-bar-padding {
+    margin-top: 0px;
+}
+
+.admin-bar .admin-bar-padding {
+    margin-top: 46px !important;
+}
+
+@media screen and (min-width: 783px) {
+    .admin-bar .admin-bar-padding {
+        margin-top: 32px !important;
+    }
+}
+
+.navbar {
+    transition: background-color linear 0.2s;
+}
+
+.navbar-top .brandlink {
+    width: 0px;
+    margin: -3px;
+    transition: width .2s;
+}
+
+.navbar-top .brandlink-show {
+    width: 190px;
+    margin: 0px;
+}
+
+.navbar-top .navbrand .brandlink .logo {
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    transform: scale(0);
+    transition: all .2s ease-in-out;
+}
+
+.navbar-top .navbrand .brandlink .logo-show {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+}
+
+/* Footer */
+footer {
+    padding: 1rem 0;
+}
+
+    footer h9 {
+        color: #01aece;
+        font-size: 1.3rem;
+        font-weight: bold;
+    }
+
+    footer a {
+        color: #01aece;
+        text-decoration: none;
+    }
+
+    footer p {
+        margin: 0;
+        padding: 0;
+    }
+
+    footer .follow-icons {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+        footer .follow-icons li {
+            display: inline-block;
+        }
+
+    footer .copyright {
+        margin: 0;
+        padding: 0.4rem 0 0 0;
+    }
+
+    footer .admin-login {
+        font-size: 0.7rem;
+        margin: 0;
+        padding: 0;
+    }
 
 .widget {
     border: 1px solid #999;
-
-    list-style-type: none; 
+    list-style-type: none;
     margin: 0;
     padding: 1.5rem;
 }
 
-.widget ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+    .widget ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+/* Home Page */
+.hp-logo {
+    background: #ffffff;
+    padding: 5em 0 2em 0;
+    text-align: center;
+}
+
+.hp-blocks {
+    background: #ffffff;
+    padding: 2rem 0 2rem 0;
+}
+
+    .hp-blocks .hp-block {
+        position: relative;
+        overflow: hidden;
+        border-bottom: 1px solid #ffffff;
+        border-right: 1px solid #ffffff;
+    }
+
+        .hp-blocks .hp-block:before {
+            content: "";
+            display: block;
+            padding-top: 100%;
+        }
+
+        .hp-blocks .hp-block .hp-block-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            color: white;
+            text-align: center;
+        }
+
+    .hp-blocks .hp-block-pic1 {
+        background: url('../img/hp_block_1.jpg') no-repeat center;
+        background-size: 100% 100%;
+    }
+
+    .hp-blocks .hp-block-pic2 {
+        background: url('../img/hp_block_2.jpg') no-repeat center;
+        background-size: 100% 100%;
+    }
+
+    .hp-blocks .hp-block-pic3 {
+        background: url('../img/hp_block_3.jpg') no-repeat center;
+        background-size: 100% 100%;
+    }
+
+    .hp-blocks .hp-block-pic4 {
+        background: url('../img/hp_block_4.jpg') no-repeat center;
+        background-size: 100% 100%;
+    }
+
+    .hp-blocks .hp-block-text1 {
+        background: #f6c570;
+    }
+
+    .hp-blocks .hp-block-text2 {
+        background: #68cac6;
+    }
+
+    .hp-blocks .hp-block-text3 {
+        background: #89c47d;
+    }
+
+    .hp-blocks .hp-block-text4 {
+        background: #ff856c;
+    }
+
+.hp-welcome {
+    background: #f8f8f8;
+    padding: 2rem 0 3rem 0;
+}
+
+.hp-featured {
+    background: #ffffff;
+    padding: 2rem 0 3rem 0;
+}
+
+.hp-latest {
+    background: #f8f8f8;
+    padding: 2rem 0 3rem 0;
+}
+
+.page-content {
+    background: #ffffff;
+    padding: 7rem 0 3rem 0;
 }

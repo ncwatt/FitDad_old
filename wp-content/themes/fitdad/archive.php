@@ -1,44 +1,163 @@
 <?php get_header(); ?>
+<div class="page-content">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-9">
+				<div class="row">
+				<?php
+					if ( have_posts() ) {
+						// Declare a counter for the while loop
+						$post_counter = 1;
 
-<div class="container">
-	
+						while ( have_posts() ) {
+							the_post();
+							
+							// Turn the post into a columns
+							if ( $post_counter == 1 ) {
+								echo "<div class=\"col-md-6 post-list\"><a href=\"", get_the_permalink(), "\">";
+							}
+							else {
+								echo "<div class=\"col-md-6 mt-4 mt-md-0 post-list\"><a href=\"", get_the_permalink(), "\">";
+							}
 
-	<div class="row">
-		<div class="col-lg-3">
-			<div class="sticky-top" style="top: 50px;">
-				<?php dynamic_sidebar('blog-sidebar'); ?>
+							// Check if there is a thumbnail image
+							if ( has_post_thumbnail() ) {
+								// Display the thumbnail
+								echo "<img src=\"", get_the_post_thumbnail_url(), "\" class=\"img-fluid post-stacked\" alt=\"", get_the_title(), "\" />";
+							}
+							else {
+								// No thumbnail image so lets display the default one from the template
+								echo "<img src=\"", bloginfo('template_directory'), "/img/default-post-image.jpg\" class=\"img-fluid post-stacked\" alt=\"", get_the_title(), "\" />";
+							}
+
+							// Display the title
+							echo "<h3>", get_the_title(), "</h3>";
+							echo "<p class=\"post-datetime\">", get_post_time('d M Y H:i'), "</p>";
+
+							// Display the excerpt
+							echo "<p>", get_the_excerpt(), "</p></a>";
+
+							echo "<ul class=\"postdetails\">";
+							echo "<li><i class=\"fas fa-user-circle\"></i> ", get_the_author_meta('display_name'), " |&nbsp;</li>";
+							echo "<li><i class=\"far fa-comments\"></i> ", get_comments_number(), " comments</li>";
+							echo "</ul>";
+
+							echo "</div>";
+
+							if ( $post_counter == 1 ) {
+								$post_counter = 2;
+							}
+							else {
+								$post_counter = 1;
+							}
+						}
+					}
+				?>
+				</div>
+				<div class="row">
+					<?php
+						global $wp_query;
+						
+						$big = 999999999; // need an unlikely integer
+						
+						$pagelinks = get_paginate_links_as_array(
+							paginate_links(
+								array(
+									'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+									'format' => '?paged=%#%',
+									'current' => max( 1, get_query_var('paged') ),
+									'total' => $wp_query->max_num_pages,
+									'type' => 'list',
+									'prev_text' => 'Previous',
+									'next_text' => 'Next'
+								)
+							), 'Next', 'Previous'
+						);
+						
+						// Declare a variable to hold the pagination buttons section
+						$pagesect = 'first';
+						$pagecount = 1;
+
+						// Loop thorugh the returned array and create the pagination links
+						foreach ( $pagelinks as $pagelink ) {
+							if ( $pagelink['sect'] == 'first' ) {
+
+								// Add the links for the first section (these would normally be the
+								// the link to previous pages)
+								echo "<div class=\"col-6 col-md-4 pagination-links\">";
+								echo "<a href=\"", $pagelink['href'], "\"><i class=\"fas fa-arrow-left\"></i> Older Posts</a>";
+								echo "</div>";
+
+								$pagesect = 'mid-start';
+							} 
+							
+							if ( $pagelink['sect'] == 'mid' ) {
+
+								if ( $pagesect == 'mid' ) {
+									echo "&nbsp;";
+								}
+
+								if ( $pagesect == 'first' ) {
+									echo "<div class=\"col-6 col-md-4 pagination-links\"></div>";
+									$pagesect = 'mid-start';
+								} 
+								
+								if ( $pagesect == 'mid-start' ) {
+									echo "<div class=\"d-none d-md-block col-md-4 text-center pagination-links\">";
+									$pagesect = 'mid';
+								}
+								
+								if ( $pagelink['type'] == 'a' ) {
+									echo "<a href=\"", $pagelink['href'], "\">", $pagelink['text'], "</a>";
+								} elseif ( $pagelink['type'] == 'span' ) {
+									echo "<span>", $pagelink['text'], "</span>";
+								}
+								
+								if ( $pagecount == count( $pagelinks ) ) {
+									echo "</div>";
+									echo "<div class=\"col-6 col-md-4\"></div>";
+								}
+							}
+
+							if ( $pagelink['sect'] == 'last' ) {
+
+								if ( $pagesect == 'first' ) {
+									echo "<div class=\"col-6 col-md-4 pagination-links\"></div>";
+									echo "<div class=\"d-none d-md-block col-md-4 text-center pagination-links\"></div>";
+								}
+
+								if ( $pagesect == 'mid' ) {
+									echo "</div>";
+								}
+
+								echo "<div class=\"col-6 col-md-4 text-end pagination-links\">";
+								echo "<a href=\"", $pagelink['href'], "\">Newer Posts <i class=\"fas fa-arrow-right\"></i></a>";
+								echo "</div>";
+							}
+
+							// Increment the counter
+							$pagecount++;
+						}
+					?>
+				</div>
 			</div>
 		</div>
-
-		<div class="col-lg-9">
-			
-
-			<?php if(have_posts()) : while(have_posts()) : the_post(); ?>
-				<?php if(has_post_thumbnail()): ?>
-					<img src="<?php the_post_thumbnail_url('post_image'); ?>" class="img-fluid" alt="<?php the_title(); ?>" />
-				<?php endif; ?>
-				<a href="<?php the_permalink(); ?>"><h1><?php the_title(); ?></h1></a>
-				<?php the_excerpt(); ?>
-			<?php endwhile; else : endif; ?>
-
-			<?php
-				global $wp_query;
- 
-				$big = 999999999; // need an unlikely integer
- 
-				echo paginate_links(
-					array(
-						'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
-						'format' => '?paged=%#%',
-						'current' => max( 1, get_query_var('paged') ),
-						'total' => $wp_query->max_num_pages
-					)
-				);
-			?>
-
-		</div>
 	</div>
+</div>
 
-</div class>
+<?php
+	$queried_object = get_queried_object();
+
+	$category = get_top_level_category( $queried_object -> term_id );
+
+	//$category = get_category( $thecat->term_id );
+	//$category_link = get_category_link( $thecat->term_id );
+	//echo "<br />", $category_link, "<br />";
+	//print_r( $category );
+
+	$sublist = get_category_subcat_list( $category );
+	//print("<pre>".print_r($sublist,true)."</pre>");
+	//print_r( $sublist );
+?>
 
 <?php get_footer(); ?>
