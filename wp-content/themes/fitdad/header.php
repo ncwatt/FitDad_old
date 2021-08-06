@@ -1,27 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 	<?php wp_head(); ?>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
 	<link href="<?php bloginfo('template_directory');?>/css/fontawesome.all.min.css" rel="stylesheet" />
-	<?php
-		if (WP_ENVIRONMENT == 'production') {
-			?>
-			<!-- Global site tag (gtag.js) - Google Analytics -->
-			<script async src="https://www.googletagmanager.com/gtag/js?id=G-FKTYX7XETX"></script>
-			<script>
-				window.dataLayer = window.dataLayer || [];
-				function gtag(){dataLayer.push(arguments);}
-				gtag('js', new Date());
-
-				gtag('config', 'G-FKTYX7XETX');
-			</script>
-			<script data-ad-client="ca-pub-2933900882310913" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-			<?php
-		}
-	?>
+	<!-- Fav / Touch Icons -->
+	<link rel="apple-touch-icon" sizes="180x180" href="<?php bloginfo('template_directory');?>/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?php bloginfo('template_directory');?>/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php bloginfo('template_directory');?>/icons/favicon-16x16.png">
+    <link rel="manifest" href="<?php bloginfo('template_directory');?>/icons/site.webmanifest">
+    <link rel="mask-icon" href="<?php bloginfo('template_directory');?>/icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="<?php bloginfo('template_directory');?>/icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="/Icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
 </head>
 <body <?php body_class(); ?>>
 

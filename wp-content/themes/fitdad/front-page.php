@@ -2,6 +2,30 @@
 <div id="hpLogo" class="container-fluid hp-logo">
 	<img src="<?php bloginfo('template_directory');?>/img/hp-logo-large.png" alt="Fit Dad Logo" />
 </div>
+<div class="d-md-none hp-blocks bg-color1">
+	<div class="container">
+		<div class="row">
+			<div class="col-12 hp-block-xs hp-block-text1">
+				<h1 class="hp-blocks-xs">#eat</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 hp-block-xs hp-block-text2">
+				<h1 class="hp-blocks-xs">#sleep</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 hp-block-xs hp-block-text3">
+				<h1 class="hp-blocks-xs">#train</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 hp-block-xs hp-block-text4">
+				<h1 class="hp-blocks-xs">#repeat</h1>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="d-none d-md-block hp-blocks">
 	<div class="container">
 		<div class="row">
@@ -11,7 +35,11 @@
 			</div>
 			<div class="d-none d-md-block col-md-4 col-lg-3 hp-block hp-block-text1">
 				<div class="hp-block-content">
-					Eat
+					<table>
+						<tr>
+							<td class="align-middle"><h1>#Eat</h1></td>
+						</tr>
+					</table>
 				</div>
 			</div>
 			<div class="d-none d-md-block col-md-4 col-lg-3 hp-block hp-block-pic2">
@@ -20,19 +48,31 @@
 			</div>
 			<div class="d-none d-lg-block col-lg-3 hp-block hp-block-text2">
 				<div class="hp-block-content">
-					Sleep
+					<table>
+						<tr>
+							<td class="align-middle"><h1>#Sleep</h1></td>
+						</tr>
+					</table>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="d-none d-md-block d-lg-none col-md-4 col-lg-3 hp-block hp-block-text2">
 				<div class="hp-block-content">
-					Sleep
+					<table>
+						<tr>
+							<td class="align-middle"><h1>#Sleep</h1></td>
+						</tr>
+					</table>
 				</div>
 			</div>
 			<div class="d-none d-lg-block col-lg-3 hp-block hp-block-text3">
 				<div class="hp-block-content">
-					Train
+					<table>
+						<tr>
+							<td class="align-middle"><h1>#Train</h1></td>
+						</tr>
+					</table>
 				</div>
 			</div>
 			<div class="d-none d-md-block col-md-4 col-lg-3 hp-block hp-block-pic3">
@@ -41,12 +81,20 @@
 			</div>
 			<div class="d-none d-md-block d-lg-none col-md-4 hp-block hp-block-text3">
 				<div class="hp-block-content">
-					Train
+					<table>
+						<tr>
+							<td class="align-middle"><h1>#Train</h1></td>
+						</tr>
+					</table>
 				</div>
 			</div>
 			<div class="d-none d-lg-block col-lg-3 hp-block hp-block-text4">
 				<div class="hp-block-content">
-					Repeat
+					<table>
+						<tr>
+							<td class="align-middle"><h1>#Repeat</h1></td>
+						</tr>
+					</table>
 				</div>
 			</div>
 			<div class="d-none d-lg-block col-lg-3 hp-block hp-block-pic4">
@@ -61,7 +109,11 @@
 			</div>
 			<div class="d-none d-md-block d-lg-none col-md-4 hp-block hp-block-text4">
 				<div class="hp-block-content">
-					Repeat
+					<table>
+						<tr>
+							<td class="align-middle"><h1>#Repeat</h1></td>
+						</tr>
+					</table>
 				</div>
 			</div>
 			<div class="d-none d-md-block d-lg-none col-md-4 hp-block hp-block-pic4">
@@ -71,7 +123,7 @@
 		</div>
 	</div>
 </div>
-<div class="hp-welcome">
+<div class="bg-color3 py-4">
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
@@ -110,11 +162,15 @@
 		</div>
 	</div>
 </div>
-<div class="hp-featured">
+<div class="bg-color1 py-4">
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12">
 				<?php
+					// Declare an array to hold the IDs of posts which are currently being
+					// shown on the home page to negate duplicates being displayed
+					$displayed_posts = array();
+
 					$sticky = get_option( 'sticky_posts' );
 					$featured_args = array(
 						'posts_per_page' => 1,
@@ -137,6 +193,9 @@
 				if ( $featured -> have_posts() ) {
 					while ( $featured -> have_posts()) {
 						$featured -> the_post(); // Get the post
+
+						// Add the post to the displayed_posts array 
+						$displayed_posts[] = get_the_ID();
 
 						echo "<div class=\"col-md-6\">";
 
@@ -175,66 +234,88 @@
 		</div>
 	</div>
 </div>
-<div class="hp-latest">
+<div class="bg-color3 py-4">
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h2>Latest Posts</h2>
+				<h2>Recent Posts</h2>
 				<hr />
 			</div>
 		</div>
 		<div class="row">
 			<?php
 				$latest_args = array(
-					'posts_per_page' => 3,
-					'post__not_in' => $sticky
+					'posts_per_page' => 4
 				);
 				$latest = new WP_Query( $latest_args );
-				if ( $latest -> have_posts() ) {
-					// Declare a counter for the while loop
-					$latest_post = 1;
 
-					while ( $latest -> have_posts()) {
+				if ( $latest -> have_posts() ) {
+					// Declare a variable to hold the count of the latest posts 
+					$latest_count = 1;
+
+					while ( $latest -> have_posts() && ( $latest_count < 4 ) ) {
 						$latest -> the_post(); // Get the post
 
-						// Turn the post into a columns
-						if ( $latest_post == 1 ) {
-							echo "<div class=\"col-md-4 post-list\"><a href=\"", get_the_permalink(), "\">";
-						}
-						else {
-							echo "<div class=\"col-md-4 mt-4 mt-md-0 post-list\"><a href=\"", get_the_permalink(), "\">";
-						}
+						// Check the post isn't already displayed
+						if ( in_array( get_the_ID(), $displayed_posts) == false ) {
+							// Add the post to the displayed_posts array 
+							$displayed_posts[] = get_the_ID();
+
+							// Turn the post into a columns
+							if ( $latest_count == 1 ) {
+								echo "<div class=\"col-md-4 post-list\"><a href=\"", get_the_permalink(), "\">";
+							}
+							else {
+								echo "<div class=\"col-md-4 mt-4 mt-md-0 post-list\"><a href=\"", get_the_permalink(), "\">";
+							}
 						
+							// Check if there is a thumbnail image
+							if ( has_post_thumbnail() ) {
+								// Display the thumbnail
+								echo "<img src=\"", get_the_post_thumbnail_url(), "\" class=\"img-fluid post-stacked\" alt=\"", get_the_title(), "\" />";
+							}
+							else {
+								// No thumbnail image so lets display the default one from the template
+								echo "<img src=\"", bloginfo('template_directory'), "/img/default-post-image.jpg\" class=\"img-fluid post-stacked\" alt=\"", get_the_title(), "\" />";
+							}
 
-						// Check if there is a thumbnail image
-						if ( has_post_thumbnail() ) {
-							// Display the thumbnail
-							echo "<img src=\"", get_the_post_thumbnail_url(), "\" class=\"img-fluid post-stacked\" alt=\"", get_the_title(), "\" />";
+							// Display the title
+							echo "<h3>", get_the_title(), "</h3>";
+							echo "<p class=\"post-datetime\">", get_post_time('d M Y H:i'), "</p>";
+
+							// Display the excerpt
+							echo "<p>", get_the_excerpt(), "</p></a>";
+
+							echo "<ul class=\"postdetails\">";
+							echo "<li><i class=\"fas fa-user-circle\"></i> ", get_the_author_meta('display_name'), " |&nbsp;</li>";
+							echo "<li><i class=\"far fa-comments\"></i> ", get_comments_number(), " comments</li>";
+							echo "</ul>";
+
+							echo "</div>";
+
+							// Increment the counter
+							$latest_count++;
 						}
-						else {
-							// No thumbnail image so lets display the default one from the template
-							echo "<img src=\"", bloginfo('template_directory'), "/img/default-post-image.jpg\" class=\"img-fluid post-stacked\" alt=\"", get_the_title(), "\" />";
-						}
-
-						// Display the title
-						echo "<h3>", get_the_title(), "</h3>";
-						echo "<p class=\"post-datetime\">", get_post_time('d M Y H:i'), "</p>";
-
-						// Display the excerpt
-						echo "<p>", get_the_excerpt(), "</p></a>";
-
-						echo "<ul class=\"postdetails\">";
-						echo "<li><i class=\"fas fa-user-circle\"></i> ", get_the_author_meta('display_name'), " |&nbsp;</li>";
-						echo "<li><i class=\"far fa-comments\"></i> ", get_comments_number(), " comments</li>";
-						echo "</ul>";
-
-						echo "</div>";
-
-						// Increment the counter
-						$latest_post++;
 					}
 				}
 			?>
+		</div>
+		<div class="row">
+			<div class="mt-4">
+				<div class="advert-before">Advert</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+					<!-- Fit Dad Square -->
+					<ins class="adsbygoogle"
+						style="display:block"
+						data-ad-client="ca-pub-2933900882310913"
+						data-ad-slot="9880151769"
+						data-ad-format="auto"
+						data-full-width-responsive="true"></ins>
+				<script>
+					(adsbygoogle = window.adsbygoogle || []).push({});
+				</script>
+				<div class="advert-after"></div>
+			</div>
 		</div>
 	</div>
 </div>

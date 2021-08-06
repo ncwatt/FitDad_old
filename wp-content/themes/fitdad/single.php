@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<div class="page-content">
+<div class="page-content bg-color1">
 	<div class="container">
 		<div class="row">
 			<div class="col-12 col-md-9 post-single">
@@ -19,14 +19,12 @@
 					echo "<p class=\"post-datetime\">Posted: ", get_post_time('d M Y H:i'), "</p>";
 					echo the_content();
 					echo the_tags();
-				?>
 
-				<!--<php
-					if(have_posts()) : while(have_posts()) : the_post();
-						the_content();
-					endwhile; else : endif;
-				>
-				<php the_tags(); >-->
+					// If comments are open or there is at least one comment, load up the comment template.
+					if ( comments_open() || get_comments_number() ) {
+						comments_template();
+					}
+				?>
 			</div>
 		</div>
 	</div>

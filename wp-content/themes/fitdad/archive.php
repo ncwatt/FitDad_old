@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<div class="page-content">
+<div class="page-content bg-color1">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-9">
