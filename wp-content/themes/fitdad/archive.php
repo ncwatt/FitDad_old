@@ -141,23 +141,38 @@
 					?>
 				</div>
 			</div>
+			<div class="col-lg-3">
+				<?php
+					$queried_object = get_queried_object();
+
+					$category = get_top_level_category( $queried_object -> term_id );	
+
+					$sublist = get_category_subcat_list( $category );
+
+					$catcount = 0;
+
+					foreach ( $sublist as $cat ) {
+						if ( $catcount == 0 ) {
+							echo "<h2>" . $cat["category_name"] . "</h2><hr />" ;
+							$catcount++;
+						}
+						else {
+							if ( $catcount == 1 ) {
+								echo "<ul class=\"category_list\">";
+							}
+
+							echo "<li><a href=\"" . $cat["category_url"] . "\">" .  $cat["category_name"] . " (" .  $cat["category_count"] . ")" . "</a></li>" ;
+							$catcount++;
+						}
+					}
+
+					if ( $catcount > 1 ) {
+						echo "</ul>";
+					}
+				?>
+			</div>
 		</div>
 	</div>
 </div>
-
-<?php
-	$queried_object = get_queried_object();
-
-	$category = get_top_level_category( $queried_object -> term_id );
-
-	//$category = get_category( $thecat->term_id );
-	//$category_link = get_category_link( $thecat->term_id );
-	//echo "<br />", $category_link, "<br />";
-	//print_r( $category );
-
-	$sublist = get_category_subcat_list( $category );
-	//print("<pre>".print_r($sublist,true)."</pre>");
-	//print_r( $sublist );
-?>
 
 <?php get_footer(); ?>

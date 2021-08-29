@@ -84,7 +84,7 @@ function get_top_level_category( $catid ) {
     $category = get_category( $catid );
 
     while ( $category -> category_parent > 0 ) {
-        $category = get_category( $category -> category_parent );
+        $category = get_category( $category -> category_parent );        
     }
 
     return $category;
