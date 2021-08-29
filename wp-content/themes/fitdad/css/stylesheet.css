@@ -136,6 +136,11 @@ a.no-underline {
         padding-bottom: 0.6rem;
     }
 
+    .post-single img {
+        height: auto;
+        max-width: 100%;
+    }
+
 
 /* Header */
 .admin-bar-padding {

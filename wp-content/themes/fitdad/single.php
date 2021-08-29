@@ -7,11 +7,11 @@
 					// Check if there is a featured image
 					if ( has_post_thumbnail() ) {
 						// Display the thumbnail
-						echo "<img src=\"", get_the_post_thumbnail_url(), "\" class=\"img-fluid featured-image\" alt=\"", get_the_title(), "\" />";
+						echo "<img src=\"", get_the_post_thumbnail_url(), "\" class=\"featured-image\" alt=\"", get_the_title(), "\" />";
 					}
 					else {
 						// No thumbnail image so lets display the default one from the template
-						echo "<img src=\"", bloginfo('template_directory'), "/img/default-post-image.jpg\" class=\"img-fluid featured-image\" alt=\"", get_the_title(), "\" />";
+						echo "<img src=\"", bloginfo('template_directory'), "/img/default-post-image.jpg\" class=\"featured-image\" alt=\"", get_the_title(), "\" />";
 					}
 
 					// Display the title
@@ -25,6 +25,37 @@
 						comments_template();
 					}
 				?>
+			</div>
+			<div class="col-lg-3">
+				<?php
+					$postcat = get_the_category( $query->post->ID );
+					if ( ! empty( $postcat ) ) {
+						$category = get_top_level_category( $postcat[0]->cat_ID );
+						
+						$sublist = get_category_subcat_list( $category );
+
+						$catcount = 0;
+
+						foreach ( $sublist as $cat ) {
+							if ( $catcount == 0 ) {
+								echo "<h2>" . $cat["category_name"] . "</h2><hr />" ;
+								$catcount++;
+							}
+							else {
+								if ( $catcount == 1 ) {
+									echo "<ul class=\"category_list\">";
+								}
+
+								echo "<li><a href=\"" . $cat["category_url"] . "\">" .  $cat["category_name"] . " (" .  $cat["category_count"] . ")" . "</a></li>" ;
+								$catcount++;
+							}
+						}
+
+						if ( $catcount > 1 ) {
+							echo "</ul>";
+						}
+					}
+				?>				
 			</div>
 		</div>
 	</div>

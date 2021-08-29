@@ -6,19 +6,10 @@
 				<div class="row">
 				<?php
 					if ( have_posts() ) {
-						// Declare a counter for the while loop
-						$post_counter = 1;
-
 						while ( have_posts() ) {
 							the_post();
-							
-							// Turn the post into a columns
-							if ( $post_counter == 1 ) {
-								echo "<div class=\"col-md-6 post-list\"><a href=\"", get_the_permalink(), "\">";
-							}
-							else {
-								echo "<div class=\"col-md-6 mt-4 mt-md-0 post-list\"><a href=\"", get_the_permalink(), "\">";
-							}
+
+							echo "<div class=\"col-md-6 mb-4 post-list\"><a href=\"", get_the_permalink(), "\">";
 
 							// Check if there is a thumbnail image
 							if ( has_post_thumbnail() ) {
@@ -169,6 +160,8 @@
 					if ( $catcount > 1 ) {
 						echo "</ul>";
 					}
+					
+					//include get_template_directory() . "/inc/strava_widget_small.php";
 				?>
 			</div>
 		</div>
