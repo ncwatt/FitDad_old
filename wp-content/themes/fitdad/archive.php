@@ -133,36 +133,55 @@
 				</div>
 			</div>
 			<div class="col-lg-3">
-				<?php
-					$queried_object = get_queried_object();
+				<div class="row">
+					<div class="col-12">
+						<?php
+							$queried_object = get_queried_object();
 
-					$category = get_top_level_category( $queried_object -> term_id );	
+							$category = get_top_level_category( $queried_object -> term_id );	
 
-					$sublist = get_category_subcat_list( $category );
+							$sublist = get_category_subcat_list( $category );
 
-					$catcount = 0;
+							$catcount = 0;
 
-					foreach ( $sublist as $cat ) {
-						if ( $catcount == 0 ) {
-							echo "<h2>" . $cat["category_name"] . "</h2><hr />" ;
-							$catcount++;
-						}
-						else {
-							if ( $catcount == 1 ) {
-								echo "<ul class=\"category_list\">";
+							foreach ( $sublist as $cat ) {
+								if ( $catcount == 0 ) {
+									echo "<h2>" . $cat["category_name"] . "</h2><hr />" ;
+									$catcount++;
+								}
+								else {
+									if ( $catcount == 1 ) {
+										echo "<ul class=\"category_list\">";
+									}
+
+									echo "<li><a href=\"" . $cat["category_url"] . "\">" .  $cat["category_name"] . " (" .  $cat["category_count"] . ")" . "</a></li>" ;
+									$catcount++;
+								}
 							}
 
-							echo "<li><a href=\"" . $cat["category_url"] . "\">" .  $cat["category_name"] . " (" .  $cat["category_count"] . ")" . "</a></li>" ;
-							$catcount++;
-						}
-					}
-
-					if ( $catcount > 1 ) {
-						echo "</ul>";
-					}
+							if ( $catcount > 1 ) {
+								echo "</ul>";
+							}
 					
-					//include get_template_directory() . "/inc/strava_widget_small.php";
-				?>
+							//include get_template_directory() . "/inc/strava_widget_small.php";
+						?>
+					</div>
+					<div class="col-12">
+						<div class="advert-before">Advert</div>
+						<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+							<!-- Fit Dad Square -->
+							<ins class="adsbygoogle"
+								style="display:block"
+								data-ad-client="ca-pub-2933900882310913"
+								data-ad-slot="9880151769"
+								data-ad-format="auto"
+								data-full-width-responsive="true"></ins>
+						<script>
+							(adsbygoogle = window.adsbygoogle || []).push({});
+						</script>
+						<div class="advert-after"></div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
